@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Natal Mágico - Viale Cataratas</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <style>
+        /* --- VARIÁVEIS DE CORES (BASEADAS NOS SEUS ANEXOS) --- */
+        :root {
+            --cor-primaria: #5D86B0; /* Azul da sua paleta */
+            --cor-primaria-escuro: #4a6d91;
+            --cor-destaque: #FFB648; /* Amarelo/Dourado da sua paleta */
+            --cor-texto: #333333;
+            --cor-fundo-claro: #f9f9f9;
+            --branco: #ffffff;
+        }
+
+        /* --- RESET GERAL --- */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Montserrat', sans-serif; color: var(--cor-texto); line-height: 1.6; background-color: var(--cor-fundo-claro); }
+        h1, h2, h3 { font-family: 'Playfair Display', serif; color: var(--cor-primaria); }
+        img { max-width: 100%; height: auto; }
+        ul { list-style: none; }
+
+        /* --- BOTÕES (CTA) --- */
+        .btn {
+            display: inline-block;
+            background-color: var(--cor-destaque);
+            color: #000;
+            font-weight: 700;
+            padding: 15px 30px;
+            border-radius: 50px;
+            text-decoration: none;
+            text-transform: uppercase;
+            box-shadow: 0 4px 15px rgba(255, 182, 72, 0.4);
+            transition: transform 0.2s, box-shadow 0.2s;
+            text-align: center;
+            border: none;
+            cursor: pointer;
+        }
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(255, 182, 72, 0.6);
+        }
+        .btn-full { width: 100%; }
+        .btn-pulse { animation: pulse 2s infinite; }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(255, 182, 72, 0.7); }
+            70% { box-shadow: 0 0 0 15px rgba(255, 182, 72, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(255, 182, 72, 0); }
+        }
+
+        /* --- HERO SECTION (TOPO) --- */
+        header {
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('fundo.jpg'); /* Substitua fundo.jpg pela foto do hotel */
+            background-size: cover;
+            background-position: center;
+            color: var(--branco);
+            text-align: center;
+            padding: 40px 20px 80px 20px;
+            position: relative;
+        }
+        .logo-container { margin-bottom: 20px; }
+        .logo-img { max-width: 200px; }
+        
+        header h1 {
+            color: var(--branco);
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+        header p { font-size: 1.1rem; margin-bottom: 30px; max-width: 600px; margin-left: auto; margin-right: auto; }
+        
+        /* Imagem do Papai Noel flutuante */
+        .santa-float {
+            margin-top: -60px;
+            text-align: center;
+            position: relative;
+            z-index: 10;
+        }
+        .santa-img {
+            max-width: 280px;
+            filter: drop-shadow(0 10px 15px rgba(0,0,0,0.3));
+        }
+
+        /* --- CONTAINER GERAL --- */
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* --- SEÇÕES --- */
+        .section-box {
+            background: var(--branco);
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+        }
+        
+        .section-title {
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: 30px;
+            position: relative;
+        }
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 3px;
+            background: var(--cor-destaque);
+            margin: 10px auto;
+        }
+
+        /* --- DIAS (TIMELINE) --- */
+        .day-card {
+            border-left: 4px solid var(--cor-primaria);
+            padding-left: 20px;
+            margin-bottom: 25px;
+        }
+        .day-date {
+            color: var(--cor-primaria);
+            font-weight: 700;
+            font-size: 1.2rem;
+            display: block;
+            margin-bottom: 5px;
+        }
+        .day-highlight { font-weight: 600; color: #d62828; } /* Vermelho para destaque */
+
+        /* --- MENU ACORDEÃO --- */
+        details {
+            background-color: #f1f5f9;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            cursor: pointer;
+        }
+        summary {
+            font-weight: 700;
+            color: var(--cor-primaria-escuro);
+            list-style: none;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        summary::after { content: '\f078'; font-family: "Font Awesome 5 Free"; font-weight: 900; }
+        details[open] summary::after { content: '\f077'; }
+        
+        .menu-list { margin-top: 15px; padding-left: 20px; }
+        .menu-list li { margin-bottom: 8px; list-style-type: disc; }
+
+        /* --- INFO BOX --- */
+        .info-box {
+            background-color: #fff3cd;
+            border: 1px solid #ffeeba;
+            color: #856404;
+            padding: 20px;
+            border-radius: 8px;
+            font-size: 0.95rem;
+        }
+        .info-box strong { display: block; margin-bottom: 5px; }
+
+        /* --- FOOTER --- */
+        footer {
+            background-color: var(--cor-primaria);
+            color: var(--branco);
+            text-align: center;
+            padding: 40px 20px;
+        }
+        footer h3 { color: var(--branco); margin-bottom: 10px; }
+
+        /* --- BOTÃO FLUTUANTE WHATSAPP --- */
+        .whatsapp-float {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #25d366;
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 30px;
+            box-shadow: 2px 2px 10px rgba(0,0,0,0.3);
+            z-index: 100;
+            text-decoration: none;
+        }
+
+        /* --- RESPONSIVIDADE --- */
+        @media (min-width: 768px) {
+            header { padding: 80px 20px 120px 20px; }
+            header h1 { font-size: 3.5rem; }
+            .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo-container">
+            <img src="logo.png" alt="Natal Viale Cataratas" class="logo-img">
+        </div>
+        <h1>Natal Mágico Viale</h1>
+        <p>Gastronomia internacional, Festa com DJ e a chegada do Papai Noel. O cenário perfeito para sua família.</p>
+        <p style="font-weight: 700; margin-top: -20px; color: var(--cor-destaque);">📅 22 a 24 de Dezembro de 2025</p>
+        <br>
+        <a href="https://wa.me/554521057240?text=Ol%C3%A1!%20Vi%20a%20p%C3%A1gina%20de%20Natal%20e%20gostaria%20de%20cotar%20o%20pacote%20para%20minha%20fam%C3%ADlia." class="btn btn-pulse">Quero uma Cotação Exclusiva</a>
+    </header>
+
+    <div class="santa-float">
+        <img src="figurinha 02.png" alt="Papai Noel Viale" class="santa-img">
+    </div>
+
+    <div class="container">
+
+        <div class="section-box text-center">
+            <h2 class="section-title">O Que Espera Por Você</h2>
+            <div class="grid-2">
+                <ul style="text-align: left; margin: 0 auto; max-width: 400px;">
+                    <li style="margin-bottom: 10px;"><i class="fas fa-check-circle" style="color:var(--cor-destaque)"></i> Mínimo de 03 noites de hospedagem</li>
+                    <li style="margin-bottom: 10px;"><i class="fas fa-utensils" style="color:var(--cor-destaque)"></i> Jantares Temáticos (Italiano e Árabe)</li>
+                    <li style="margin-bottom: 10px;"><i class="fas fa-gift" style="color:var(--cor-destaque)"></i> Entrega de Presentes com Papai Noel</li>
+                    <li style="margin-bottom: 10px;"><i class="fas fa-music" style="color:var(--cor-destaque)"></i> Festa Natalina com DJ até 01h</li>
+                    <li style="margin-bottom: 10px;"><i class="fas fa-child" style="color:var(--cor-destaque)"></i> Recreação Diária</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="section-box">
+            <h2 class="section-title">Programação Gastronômica</h2>
+            
+            <div class="day-card">
+                <span class="day-date">22 e 23 de DEZEMBRO</span>
+                <p><strong>Horário:</strong> 19h00 às 22h00 | <strong>Local:</strong> Restaurante</p>
+                <p style="margin-top: 10px;"><i class="fas fa-flag"></i> <strong>22/12:</strong> Jantar com Ilha Italiana 🇮🇹</p>
+                <p><i class="fas fa-flag"></i> <strong>23/12:</strong> Jantar com Ilha Árabe 🇸🇦</p>
+                <p style="font-size: 0.9rem; color: #666; margin-top: 5px;">*Ambos os dias com Ilha Infantil. Valor adicional: R$ 120,00/pessoa.</p>
+            </div>
+
+            <div class="day-card" style="border-left-color: var(--cor-destaque);">
+                <span class="day-date" style="color: #d35400; font-size: 1.4rem;">24 DE DEZEMBRO: O GRANDE DIA 🎅</span>
+                
+                <div style="background: #fff8e1; padding: 15px; border-radius: 8px; margin: 15px 0;">
+                    <h4 style="color: #d35400; margin-bottom: 5px;"><i class="fas fa-gift"></i> Entrega de Presentes</h4>
+                    <p><strong>17h às 18h na Recepção.</strong> Papai Noel recebe as crianças!</p>
+                    <p style="font-size: 0.85rem;">*Entregar presentes na Recreação (Apto 18) das 13h às 16h30.</p>
+                </div>
+
+                <p><strong>Jantar de Natal Especial (Restaurante):</strong><br>
+                1º Turno: 19h às 20h30<br>
+                2º Turno: 21h às 22h30</p>
+                
+                <p style="margin-top: 15px;"><strong>Festa com DJ Arthur (Centro de Eventos):</strong><br>
+                Das 20h às 01h. Bebidas Inclusas (Água, refri e suco).</p>
+            </div>
+
+            <div style="text-align: center; margin-top: 30px;">
+                <a href="https://wa.me/554521057240?text=Ol%C3%A1!%20Gostaria%20de%20saber%20a%20disponibilidade%20para%20o%20Natal." class="btn">Verificar Disponibilidade</a>
+            </div>
+        </div>
+
+        <div class="section-box">
+            <h2 class="section-title">Menu da Ceia de Natal</h2>
+            <p style="text-align: center; margin-bottom: 20px;">Uma experiência gastronômica completa inclusa no dia 24/12.</p>
+
+            <details>
+                <summary>🥗 Entradas e Saladas (Clique para ver)</summary>
+                <ul class="menu-list">
+                    <li>Estação de frios, charcutaria e antepastos</li>
+                    <li>Salpicão Natalino e Salada Waldorf</li>
+                    <li>Terrine de ricota e azeitonas</li>
+                    <li>Caponata e Babaganoush</li>
+                    <li>Mini Caprese e Tomates ao Pesto</li>
+                </ul>
+            </details>
+
+            <details open> <summary>🍖 Pratos Principais</summary>
+                <ul class="menu-list">
+                    <li><strong>Chester Assado</strong> com farofa de frutas secas</li>
+                    <li><strong>Tender</strong> ao molho de laranja e mel</li>
+                    <li><strong>Escalope de Mignon</strong> ao molho de cogumelos frescos</li>
+                    <li>Pirarucu ao molho mediterrâneo</li>
+                    <li>Rondelli misto e Ravioli de ricota</li>
+                    <li>Arroz natalino e seleção de legumes</li>
+                </ul>
+            </details>
+
+            <details>
+                <summary>🍰 Sobremesas Espetaculares</summary>
+                <ul class="menu-list">
+                    <li>Torre de Rabanadas</li>
+                    <li>Entremet de Pistache</li>
+                    <li>Pavlova de frutas vermelhas</li>
+                    <li>Cheesecake e Torta Red Velvet</li>
+                    <li>Estação de Café no Foyer</li>
+                </ul>
+            </details>
+            
+            <p style="font-size: 0.8rem; text-align: center; margin-top: 10px;">*Bebidas Inclusas no Restaurante: água, refri e suco.</p>
+        </div>
+
+        <div class="info-box">
+            <h3><i class="fas fa-exclamation-triangle"></i> Atenção para o dia 24/12:</h3>
+            <ul style="margin-top: 10px; list-style-type: disc; padding-left: 20px;">
+                <li><strong>Alimentação:</strong> Lanches no Bar até 16h. Após, atendimento na Piscina.</li>
+                <li><strong>Room Service:</strong> Não disponível neste dia.</li>
+                <li><strong>Bebidas na Festa:</strong> Ponto de bar disponível para venda de alcoólicos.</li>
+            </ul>
+        </div>
+
+    </div>
+
+    <footer>
+        <h3>Garanta o Natal da sua família</h3>
+        <p>Pacotes limitados. Fale diretamente com nossa equipe.</p>
+        <br>
+        <a href="https://wa.me/554521057240?text=Ol%C3%A1!%20Quero%20reservar%20meu%20Natal%20no%20Viale%20Cataratas." class="btn btn-pulse" style="border: 2px solid white;">Reservar Agora</a>
+        
+        <p style="margin-top: 40px; font-size: 0.8rem; opacity: 0.7;">Viale Cataratas Hotel & Eventos<br>Foz do Iguaçu - PR</p>
+    </footer>
+
+    <a href="https://wa.me/554521057240?text=Ol%C3%A1!%20Vi%20o%20site%20e%20quero%20cotar%20o%20Natal." class="whatsapp-float" target="_blank">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+</body>
+</html>
